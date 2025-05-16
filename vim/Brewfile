@@ -1,0 +1,6 @@
+brew "vim"
+brew "neovim"
+
+brew "ag"
+
+brew "fzf"
