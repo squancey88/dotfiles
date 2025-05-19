@@ -74,6 +74,8 @@ set backspace=indent,eol,start
 set scrolloff=8
 set updatetime=300
 set signcolumn=yes
+set foldmethod=syntax
+set foldlevelstart=99
 
 " Theme
 set background=dark
@@ -182,3 +184,8 @@ tnoremap <leader>tt <C-\><C-n>:call TermToggle(12)<CR>
 " Terminal go back to normal mode
 tnoremap <Esc> <C-\><C-n>
 tnoremap :q! <C-\><C-n>:q!<CR>
+
+" Autocomplete tab fixes (from Claude)
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
