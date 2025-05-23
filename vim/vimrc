@@ -51,7 +51,7 @@ Plug 'NLKNguyen/papercolor-theme'
 " Editing enhancements
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
 
@@ -92,10 +92,20 @@ map <C-n> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
 
 " FZF config
-nnoremap <leader>f :Files<CR>
-nnoremap <leader>g :GFiles<CR>
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>r :Rg<CR>
+
+function! SafeFzf(command)
+  if exists("b:NERDTree")
+    " Move to the first non-NERDTree window
+    wincmd l
+  endif
+  " Run the original fzf command
+  execute a:command
+endfunction
+
+nnoremap <leader>f :call SafeFzf("Files")<CR>
+nnoremap <leader>g :call SafeFzf("GFiles")<CR>
+nnoremap <leader>b :call SafeFzf("Buffers")<CR>
+nnoremap <leader>r :call SafeFzf("Rg")<CR>
 
 " Rails navigation shortcuts
 nnoremap <leader>ec :Econtroller<CR>
@@ -189,3 +199,4 @@ tnoremap :q! <C-\><C-n>:q!<CR>
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+command! Bd bp|bd #
