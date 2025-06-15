@@ -3,4 +3,5 @@ brew "neovim"
 
 brew "ag"
 
+brew "ripgrep"
 brew "fzf"
