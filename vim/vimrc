@@ -53,6 +53,14 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 " Plug 'jiangmiao/auto-pairs'
 
+" syntax
+Plug 'joukevandermaas/vim-ember-hbs'
+Plug 'MaxMEllon/vim-jsx-pretty'
+
+" LSP
+
+Plug 'neovim/nvim-lspconfig'
+
 call plug#end()
 
 " Basic settings
@@ -119,7 +127,7 @@ nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>l :TestLast<CR>
-nmap <silent> <leader>g :TestVisit<CR>
+nmap <silent> <leader>v :TestVisit<CR>
 
 " ALE config
 let g:ale_linters = {
