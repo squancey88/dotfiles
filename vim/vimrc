@@ -65,6 +65,19 @@ Plug 'neovim/nvim-lspconfig'
 " White space viewing
 Plug 'mcauley-penney/visual-whitespace.nvim'
 
+
+" Neo test
+Plug 'nvim-lua/plenary.nvim'
+Plug 'antoinemadec/FixCursorHold.nvim'
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-neotest/nvim-nio'
+Plug 'nvim-neotest/neotest'
+
+" Jsx
+
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+
 call plug#end()
 
 " Basic settings
@@ -137,6 +150,11 @@ nmap <silent> <leader>v :TestVisit<CR>
 " ALE config
 let g:ale_linters = {
 \   'ruby': ['rubocop'],
+\   'javascript': ['eslint'],
+\   'javascriptreact': ['eslint'],
+\   'typescript': ['eslint', 'tsserver'],
+\   'typescriptreact': ['eslint', 'tsserver'],
+\   'eruby': ['herb']
 \}
 let g:ale_fixers = {
 \   'ruby': ['rubocop'],
@@ -149,6 +167,17 @@ let g:coc_global_extensions = [
   \ 'coc-snippets',
   \ 'coc-json',
   \ ]
+
+" require('lspconfig')
+" vim.lsp.enable('herb_ls')
+
+" Define the HERB linter
+call ale#linter#Define('eruby', {
+\   'name': 'herb',
+\   'executable': 'herb',
+\   'command': 'herb lex %s',
+\   'callback': 'ale#handlers#ruby#HandleSyntaxErrors',
+\})
 
 " Use tab for trigger completion with characters ahead and navigate
 inoremap <silent><expr> <TAB>
