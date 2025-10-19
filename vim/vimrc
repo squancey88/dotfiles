@@ -147,9 +147,12 @@ nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>v :TestVisit<CR>
 
+let path = expand('%:p')
+let linter = path =~# 'amicis_in_conflictu' ? 'standardrb' : 'rubocop'
+
 " ALE config
 let g:ale_linters = {
-\   'ruby': ['rubocop'],
+\   'ruby': [linter],
 \   'javascript': ['eslint'],
 \   'javascriptreact': ['eslint'],
 \   'typescript': ['eslint', 'tsserver'],
@@ -157,9 +160,11 @@ let g:ale_linters = {
 \   'eruby': ['herb']
 \}
 let g:ale_fixers = {
-\   'ruby': ['rubocop'],
+\   'ruby': [linter],
 \}
-" let g:ale_fix_on_save = 1
+if linter == 'standardrb'
+  let g:ale_fix_on_save = 1
+endif
 
 " COC config for Ruby
 let g:coc_global_extensions = [
