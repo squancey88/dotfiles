@@ -147,6 +147,11 @@ nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>v :TestVisit<CR>
 
+let g:ale_javascript_eslint_executable = 'npx eslint'
+let g:ale_javascriptreact_eslint_executable = 'npx eslint'
+let g:ale_typescript_eslint_executable = 'npx eslint'
+let g:ale_typescriptreact_eslint_executable = 'npx eslint'
+
 let path = expand('%:p')
 let linter = path =~# 'amicis_in_conflictu' ? 'standardrb' : 'rubocop'
 
