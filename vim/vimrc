@@ -47,7 +47,8 @@ Plug 'dense-analysis/ale'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'morhetz/gruvbox'
-Plug 'NLKNguyen/papercolor-theme'
+Plug 'ellisonleao/gruvbox.nvim'
+" Plug 'NLKNguyen/papercolor-theme'
 
 " Editing enhancements
 Plug 'tpope/vim-surround'
@@ -77,6 +78,9 @@ Plug 'nvim-neotest/neotest'
 
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
+
+" Angular
+Plug 'burnettk/vim-angular'
 
 call plug#end()
 
@@ -116,6 +120,7 @@ let g:airline#extensions#ale#enabled = 1
 " NERDTree config
 map <C-n> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
+let NERDTreeWinSize=50
 
 " FZF config
 
@@ -153,6 +158,9 @@ let g:ale_typescript_eslint_executable = 'npx eslint'
 let g:ale_typescriptreact_eslint_executable = 'npx eslint'
 
 let path = expand('%:p')
+if empty(path)
+  let path = getcwd()
+endif
 let linter = path =~# 'amicis_in_conflictu' ? 'standardrb' : 'rubocop'
 
 " ALE config
@@ -160,8 +168,8 @@ let g:ale_linters = {
 \   'ruby': [linter],
 \   'javascript': ['eslint'],
 \   'javascriptreact': ['eslint'],
-\   'typescript': ['eslint', 'tsserver'],
-\   'typescriptreact': ['eslint', 'tsserver'],
+\   'typescript': ['eslint'],
+\   'typescriptreact': ['eslint'],
 \   'eruby': ['herb']
 \}
 let g:ale_fixers = {
@@ -176,6 +184,10 @@ let g:coc_global_extensions = [
   \ 'coc-solargraph',
   \ 'coc-snippets',
   \ 'coc-json',
+  \ 'coc-tsserver',
+  \ 'coc-angular',
+  \ 'coc-eslint',
+  \ 'coc-prettier',
   \ ]
 
 " require('lspconfig')
@@ -211,6 +223,14 @@ nnoremap <C-H> <C-W><C-H>
 
 " Neovim specific settings
 set inccommand=split  " Shows live preview of substitutions
+
+" Improved syntax highlighting for angular - This doesnt seem to work
+" lua << EOF
+"   require('nvim-treesitter.configs').setup {
+"     ensure_installed = { "typescript", "tsx", "html", "css", "scss", "javascript", "json" },
+"     highlight = { enable = true },
+"   }
+" EOF
 
 " Terminal Function
 let g:term_buf = 0

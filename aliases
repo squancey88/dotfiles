@@ -1,0 +1,11 @@
+set -o vi
+
+alias gc="git checkout"
+alias v="nvim"
+alias vi="nvim"
+
+alias rm="rm -i"
+alias mv="mv -i"
+
+
+alias tms="tmuxinator start"

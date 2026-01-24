@@ -1,0 +1,10 @@
+name: aic_dev
+root: ~/development/amicis_in_conflictu
+
+windows:
+  - editor:
+      panes:
+        - docker exec -it AIC_WEB /bin/bash
+        - docker logs -f AIC_WEB
+        - nvim
+      layout: 8f8d,382x94,0,0{114x94,0,0[114x47,0,0,0,114x46,0,48,2],267x94,115,0,1}
