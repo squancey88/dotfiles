@@ -73,6 +73,7 @@ Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-neotest/nvim-nio'
 Plug 'nvim-neotest/neotest'
+Plug 'olimorris/neotest-rspec'
 
 " Jsx
 
@@ -147,7 +148,7 @@ nnoremap <leader>et :Etest<CR>
 
 " vim-test mappings
 nmap <silent> <leader>t :TestNearest<CR>
-nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>T :call CloseTestBuffer()<CR>:TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>v :TestVisit<CR>
@@ -161,7 +162,8 @@ let path = expand('%:p')
 if empty(path)
   let path = getcwd()
 endif
-let linter = path =~# 'amicis_in_conflictu' ? 'standardrb' : 'rubocop'
+" let linter = path =~# 'amicis_in_conflictu' ? 'standardrb' : 'rubocop'
+let linter = 'standardrb'
 
 " ALE config
 let g:ale_linters = {
@@ -272,3 +274,26 @@ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 command! Bd bp|bd #
+
+" improve testing
+let g:test#strategy = 'neovim'
+let g:test#neovim#start_normal = 1  " Stay in normal mode after tests finish
+
+" Keep the terminal buffer alive after tests
+let g:test#preserve_screen = 1
+let g:test#neovim#term_position = 'belowright 15'
+
+" let g:test#strategy = 'vimterminal'
+" let g:test#vim#term_position = 'belowright 20'
+
+function! CloseTestBuffer()
+  let test_buf = bufnr('term://*rspec*')
+  if test_buf != -1
+    let test_win = bufwinid(test_buf)
+    if test_win != -1
+      call win_gotoid(test_win)
+      close!
+    endif
+    execute 'bdelete! ' . test_buf
+  endif
+endfunction
